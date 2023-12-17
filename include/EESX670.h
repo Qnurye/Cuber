@@ -16,7 +16,7 @@ public:
     };
 
     // 初始化传感器
-    void begin() const {
+    void initialize() const {
         pinMode(outPin, INPUT);
     };
 
