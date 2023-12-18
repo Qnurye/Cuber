@@ -41,6 +41,9 @@ void setup() {
         while (!sensorR.getState()) {}
         stepDriverR.turn(Stop);
     }
+
+    MEGA996RGrip(&servoL, Close);
+    MEGA996RGrip(&servoR, Close);
 }
 
 void loop() {
@@ -71,6 +74,18 @@ void loop() {
                 break;
             case CMD_R_ROTATE_CCW_180:
                 TB660Rotate(&stepDriverR, &sensorR, Counterclockwise, 180);
+                break;
+            case CMD_L_GRIP_OPEN:
+                MEGA996RGrip(&servoL, Open);
+                break;
+            case CMD_L_GRIP_CLOSE:
+                MEGA996RGrip(&servoL, Close);
+                break;
+            case CMD_R_GRIP_OPEN:
+                MEGA996RGrip(&servoR, Open);
+                break;
+            case CMD_R_GRIP_CLOSE:
+                MEGA996RGrip(&servoR, Close);
                 break;
             default:
                 break;

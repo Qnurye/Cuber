@@ -25,6 +25,19 @@ void TB660Rotate(TB660* tb660, EE_SX670* eeSx670, Dir dir, int degree) {
         default:
             break;
     }
+}
+
+enum GripStatus {
+    Open,
+    Close
 };
+
+void MEGA996RGrip(MEGA996R* mega996R, GripStatus status) {
+    if (status == Close) {
+        mega996R->setAngle(90);
+    } else {
+        mega996R->setAngle(180);
+    }
+}
 
 #endif //CUBER_CONTROLLER_H

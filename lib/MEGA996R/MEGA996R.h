@@ -6,6 +6,7 @@
 #define CUBER_MEGA996R_H
 
 #include "Pin.h"
+#include "Servo.h"
 
 class MEGA996R {
 public:
@@ -13,13 +14,14 @@ public:
     explicit MEGA996R(pin servoPin);
 
     // 初始化舵机
-    void initialize() const;
+    void initialize();
 
     // 控制舵机角度
-    void setAngle(int angle) const;
+    void setAngle(int angle);
 
 private:
     pin pwmPin;
+    Servo servo;
 };
 
 #endif //CUBER_MEGA996R_H
