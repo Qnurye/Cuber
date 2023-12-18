@@ -4,19 +4,23 @@
 
 #ifndef CUBER_TB660_H
 #define CUBER_TB660_H
-//#define DEFAULT_PULSE_INTERVAL 1000
 #define DEFAULT_DUTY_CYCLE 60
+
 #include "Pin.h"
 
+// 强迫症喜欢把单位定义成类型
 typedef unsigned percent;
-typedef unsigned pwm;
 
+// 强迫症喜欢使用枚举
 enum Dir {
     Clockwise,
     Stop,
     Counterclockwise
 };
 
+/**
+ * TB660 步进电机
+ */
 class TB660 {
 public:
     explicit TB660(pin directionPin, pin pulsePin, percent dutyCycle);
@@ -32,7 +36,7 @@ public:
 private:
     pin dirPin;
     pin pulPin;
-    pwm pulseWidth;
+    int pulseWidth;
 
     void enableMotor() const;
 
