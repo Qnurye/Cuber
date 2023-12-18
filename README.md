@@ -60,13 +60,13 @@
 
 ### 光电传感器
 
-[EESX670.h](include/EESX670.h)
+[EESX670.h](lib/EESX670/EESX670.h)
 
-> 状态: `unavailable❗`
+> 状态: `available ✅`
 
 ### 步进电机
 
-[TB660Driver.h](include/TB660Driver.h)
+[TB660Driver.h](lib/TB660/TB660.h)
 
 > 状态: `available ✅`
 
@@ -74,7 +74,7 @@
 
 ### 舵机
 
-[MEGA996R](include/MEGA996R.h)
+[MEGA996R](lib/MEGA996R/MEGA996R.h)
 
 > 状态: `todevelop 🌱`
 

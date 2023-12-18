@@ -5,8 +5,6 @@
 #ifndef CUBER_SENSORSHIELDPINS_H
 #define CUBER_SENSORSHIELDPINS_H
 
-typedef int pin;
-
 #define SENSOR_SHIELD_TX_PIN 0
 #define SENSOR_SHIELD_RX_PIN 1
 #define R_LOC_SENSOR_PIN 2

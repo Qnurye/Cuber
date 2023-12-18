@@ -1,26 +1,19 @@
 //
-// Created by qnurye on 12/17/23.
+// Created by qnurye on 12/18/23.
 //
+#include <Arduino.h>
+#include "MEGA996R.h"
+#include "Pin.h"
 
-#ifndef CUBER_MEGA996R_H
-#define CUBER_MEGA996R_H
-
-#include "Arduino.h"
-
-class MEGA996R {
-public:
-    // 构造函数，传入舵机控制引脚
-    explicit MEGA996R(int servoPin) {
+MEGA996R::MEGA996R(pin servoPin) {
         pwmPin = servoPin;
-    };
+}
 
-    // 初始化舵机
-    void initialize() const {
+void MEGA996R::initialize() const {
         pinMode(pwmPin, OUTPUT);
-    };
+}
 
-    // 控制舵机角度
-    void setAngle(int angle) const {
+void MEGA996R::setAngle(int angle) const {
         int pulseWidth = static_cast<int>(map(angle, 0, 180, 500, 2500));
 
         // 计算脉冲周期
@@ -37,10 +30,4 @@ public:
         delay(pulseHigh);
         digitalWrite(pwmPin, LOW);
         delay(pulseLow);
-    };
-
-private:
-    int pwmPin;
-};
-
-#endif //CUBER_MEGA996R_H
+}
