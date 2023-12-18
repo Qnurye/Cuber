@@ -5,7 +5,7 @@
 #ifndef CUBER_TB660_H
 #define CUBER_TB660_H
 //#define DEFAULT_PULSE_INTERVAL 1000
-#define DEFAULT_DUTY_CYCLE 50
+#define DEFAULT_DUTY_CYCLE 60
 #include "Pin.h"
 
 typedef unsigned percent;

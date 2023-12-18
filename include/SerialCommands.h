@@ -15,7 +15,7 @@
 #define CMD_L_ROTATE_CW_90 '8'
 #define CMD_L_ROTATE_CCW_90 '9'
 #define CMD_L_ROTATE_CW_180 '0'
-#define CMD_L_ROTATE_CCW_180 'B'
-#define CMD_R_ROTATE_CCW_180 'C'
+#define CMD_L_ROTATE_CCW_180 'b'
+#define CMD_R_ROTATE_CCW_180 'c'
 
 #endif //CUBER_SERIALCOMMANDS_H

@@ -1,8 +1,10 @@
 #include <Arduino.h>
 #include "SensorShieldPins.h"
+#include "SerialCommands.h"
 #include "TB660.h"
 #include "MEGA996R.h"
 #include "EESX670.h"
+#include "Controllers.h"
 
 EE_SX670 sensorL(L_LOC_SENSOR_PIN);
 EE_SX670 sensorR(R_LOC_SENSOR_PIN);
@@ -11,6 +13,7 @@ TB660 stepDriverR(R_STEP_DIR_PIN, R_STEP_PUL_PIN, DEFAULT_DUTY_CYCLE);
 MEGA996R servoL(L_SERVO_PIN);
 MEGA996R servoR(R_SERVO_PIN);
 
+char cmd;
 void setup() {
     sensorL.initialize();
     sensorR.initialize();
@@ -41,4 +44,37 @@ void setup() {
 }
 
 void loop() {
+    Serial.readBytes(&cmd, 1);
+    if (cmd) {
+        Serial.println(cmd);
+        switch (cmd) {
+            case CMD_L_ROTATE_CW_90:
+                TB660Rotate(&stepDriverL, &sensorL, Clockwise, 90);
+                break;
+            case CMD_L_ROTATE_CW_180:
+                TB660Rotate(&stepDriverL, &sensorL, Clockwise, 180);
+                break;
+            case CMD_L_ROTATE_CCW_90:
+                TB660Rotate(&stepDriverL, &sensorL, Counterclockwise, 90);
+                break;
+            case CMD_L_ROTATE_CCW_180:
+                TB660Rotate(&stepDriverL, &sensorL, Counterclockwise, 180);
+                break;
+            case CMD_R_ROTATE_CW_90:
+                TB660Rotate(&stepDriverR, &sensorR, Clockwise, 90);
+                break;
+            case CMD_R_ROTATE_CW_180:
+                TB660Rotate(&stepDriverR, &sensorR, Clockwise, 180);
+                break;
+            case CMD_R_ROTATE_CCW_90:
+                TB660Rotate(&stepDriverR, &sensorR, Counterclockwise, 90);
+                break;
+            case CMD_R_ROTATE_CCW_180:
+                TB660Rotate(&stepDriverR, &sensorR, Counterclockwise, 180);
+                break;
+            default:
+                break;
+        }
+        cmd = '\0';
+    }
 }
