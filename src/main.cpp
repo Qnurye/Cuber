@@ -61,7 +61,7 @@ void loop() {
             case CMD_L_ROTATE_CCW_90:
                 TB660Rotate(&stepDriverL, &sensorL, Counterclockwise, 90);
                 break;
-            case CMD_L_ROTATE_CCW_180:
+            case CMD_L_ROTATE_CCW_180 | 'B':
                 TB660Rotate(&stepDriverL, &sensorL, Counterclockwise, 180);
                 break;
             case CMD_R_ROTATE_CW_90:
@@ -73,7 +73,7 @@ void loop() {
             case CMD_R_ROTATE_CCW_90:
                 TB660Rotate(&stepDriverR, &sensorR, Counterclockwise, 90);
                 break;
-            case CMD_R_ROTATE_CCW_180:
+            case CMD_R_ROTATE_CCW_180 | 'C':
                 TB660Rotate(&stepDriverR, &sensorR, Counterclockwise, 180);
                 break;
             case CMD_L_GRIP_OPEN:
