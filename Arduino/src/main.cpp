@@ -13,7 +13,7 @@ TB660 stepDriverR(R_STEP_DIR_PIN, L_LOC_SENSOR_PIN, DEFAULT_DUTY_CYCLE);
 MEGA996R servoL(L_SERVO_PIN);
 MEGA996R servoR(R_SERVO_PIN);
 
-char cmd;
+unsigned char cmd = '\0';
 
 void setup() {
     sensorR.initialize();
@@ -49,7 +49,7 @@ void setup() {
 
 void loop() {
     Serial.readBytes(&cmd, 1);
-    if (cmd) {
+    if (cmd != '\0') {
         Serial.println(cmd);
         switch (cmd) {
             case CMD_L_ROTATE_CW_90:

@@ -1,0 +1,14 @@
+{
+  "CMD_R_GRIP_CLOSE": "1",
+  "CMD_R_GRIP_OPEN": "2",
+  "CMD_L_GRIP_CLOSE": "3",
+  "CMD_L_GRIP_OPEN": "4",
+  "CMD_R_ROTATE_CW_90": "5",
+  "CMD_R_ROTATE_CCW_90": "6",
+  "CMD_R_ROTATE_CW_180": "7",
+  "CMD_L_ROTATE_CW_90": "8",
+  "CMD_L_ROTATE_CCW_90": "9",
+  "CMD_L_ROTATE_CW_180": "0",
+  "CMD_L_ROTATE_CCW_180": "b",
+  "CMD_R_ROTATE_CCW_180": "c"
+}

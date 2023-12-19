@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="abbe9a5e-4c8c-44fc-bddf-84369b01d5c1" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Cuber.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Arduino/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Arduino/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Arduino/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Arduino/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/.idea/Go.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/config/cmd.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/pkg/config/cmd.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Go/pkg/rubiksCube/parser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/arduino-project-settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/.idea/arduino-project-settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/M-CubeRobot说明书.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/M-CubeRobot说明书.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Controllers.h" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/include/Controllers.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/README" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/include/README" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/SensorShieldPins.h" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/include/SensorShieldPins.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/SerialCommands.h" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/include/SerialCommands.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/EESX670/EESX670.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/lib/EESX670/EESX670.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/EESX670/EESX670.h" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/lib/EESX670/EESX670.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MEGA996R/MEGA996R.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/lib/MEGA996R/MEGA996R.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MEGA996R/MEGA996R.h" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/lib/MEGA996R/MEGA996R.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Pin/Pin.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/lib/Pin/Pin.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Pin/Pin.h" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/lib/Pin/Pin.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/README" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/lib/README" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/TB660/TB660.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/lib/TB660/TB660.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/TB660/TB660.h" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/lib/TB660/TB660.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/platformio.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/README" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/test/README" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="GOROOT" url="file:///usr/lib/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PlatformioLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="3" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2Zl6MYj477YDtJhjrZtZSv4BQwd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/home/qnurye/Documents/Projects/Cuber",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "go.vgo",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-467a64f6063b-ee0e143f3e2b-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.11799.286" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="abbe9a5e-4c8c-44fc-bddf-84369b01d5c1" name="更改" comment="" />
+      <created>1702984273166</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702984273166</updated>
+      <workItem from="1702984275405" duration="67000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>

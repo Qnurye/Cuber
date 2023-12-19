@@ -3,5 +3,6 @@
   <component name="Arduino Project Settings">
     <option name="immediateSend" value="false" />
     <option name="port" value="/dev/ttyACM0" />
+    <option name="serialEndOfLine" value="0" />
   </component>
 </project>
