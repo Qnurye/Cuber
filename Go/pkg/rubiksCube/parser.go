@@ -6,136 +6,231 @@ import (
 	"strings"
 )
 
-// TODO: Finish and clean this AI generated shit
-
 // CubeParser represents a Rubik's Cube formula parser.
 type CubeParser struct {
-	Config config.CommandConfig
+	Config *config.CommandConfig
 }
 
 // NewCubeParser creates a new CubeParser with the specified configuration.
-func NewCubeParser(config config.CommandConfig) *CubeParser {
+func NewCubeParser(config *config.CommandConfig) *CubeParser {
 	return &CubeParser{Config: config}
 }
 
 // ParseFormula parses a Rubik's Cube formula and returns the sequence of commands.
-func (parser *CubeParser) ParseFormula(formula string) ([]string, error) {
+func (p *CubeParser) ParseFormula(formula string) ([]string, error) {
 	ts := strings.Fields(formula) // tokens
-	cmds := make([]string, 0)     // commands
+	cmd := make([]string, 0)      // commands
 
 	for _, t := range ts {
-		command, err := parser.parseToken(t)
+		c, err := p.parseToken(t)
 		if err != nil {
 			return nil, err
 		}
-		cmds = append(cmds, command)
+		cmd = append(cmd, c[:]...)
 	}
 
-	return cmds, nil
+	return cmd, nil
 }
 
 type Direction int
 
 const (
-	CCW Direction = 1 << iota // Counter Clock Wise
-	CW2                       // Clock Wise Twice
+	CCW Direction = 1 << iota // Counter-Clock Wise
 	CW                        // Clock Wise
 )
 
-func (parser *CubeParser) parseToken(token string) (string, error) {
-	if len(token) < 2 {
-		return "", errors.New("invalid token length")
+func (p *CubeParser) parseToken(token string) ([]string, error) {
+	if len(token) < 1 {
+		return make([]string, 0), errors.New("invalid token length")
 	}
 
-	d := token[len(token)-1:] // direction
+	var d string
+	if len(token) == 1 {
+		d = ""
+	} else {
+		d = token[len(token)-1:] // direction
+	}
 	switch d {
 	case "'":
-		return parser.getCmd(token[:len(token)-1], CCW)
+		return p.getCommand(token[:len(token)-1], CCW)
 	case "2":
-		return parser.getCmd(token[:len(token)-1], CW2)
+		c, nil := p.getCommand(token[:len(token)-1], CW)
+		return append(c, c[:]...), nil
 	default:
-		return parser.getCmd(token, CW)
+		return p.getCommand(token, CW)
 	}
 }
 
-func (parser *CubeParser) getCmd(move string, direction Direction) (string, error) {
-	switch move {
-	case "R":
-		return parser.getRotateCmd("R", direction)
-	case "L":
-		return parser.getRotateCmd("L", direction)
-	case "D":
-		return parser.getGripCmd("R", direction)
-	case "U":
-		return parser.getGripCmd("L", direction)
-	case "F":
-		return parser.getGripCmd("R", direction)
-	case "B":
-		return parser.getGripCmd("L", direction)
-	default:
-		return "", errors.New("unknown move: " + move)
-	}
-}
+func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
+	var (
+		LClose  = p.Config.CmdLGripClose
+		RClose  = p.Config.CmdRGripClose
+		LOpen   = p.Config.CmdLGripOpen
+		ROpen   = p.Config.CmdRGripOpen
+		LCw90   = p.Config.CmdLRotateCw90
+		RCw90   = p.Config.CmdRRotateCw90
+		LCcw90  = p.Config.CmdLRotateCcw90
+		RCcw90  = p.Config.CmdRRotateCcw90
+		RCw180  = p.Config.CmdRRotateCw180
+		RCcw180 = p.Config.CmdRRotateCcw180
+		LCw180  = p.Config.CmdLRotateCw180
+		LCcw180 = p.Config.CmdLRotateCcw180
+	)
 
-func (parser *CubeParser) getRotateCmd(side string, rotation Direction) (string, error) {
-	switch side {
-	case "R":
-		return parser.getCmdByRotation(cmd.CMD_R_ROTATE_CW_90, cmd.CMD_R_ROTATE_CCW_90, cmd.CMD_R_ROTATE_CW_180, rotation)
-	case "L":
-		return parser.getCmdByRotation(cmd.CMD_L_ROTATE_CW_90, cmd.CMD_L_ROTATE_CCW_90, cmd.CMD_L_ROTATE_CW_180, rotation)
-	default:
-		return "", errors.New("unknown side: " + side)
-	}
-}
-
-func (parser *CubeParser) getGripCmd(side string, rotation Direction) (string, error) {
-	switch side {
-	case "R":
-		return parser.getCmdByRotation(cmd.CMD_R_GRIP_CLOSE, cmd.CMD_R_GRIP_OPEN, "", rotation)
-	case "L":
-		return parser.getCmdByRotation(cmd.CMD_L_GRIP_CLOSE, cmd.CMD_L_GRIP_OPEN, "", rotation)
-	default:
-		return "", errors.New("unknown side: " + side)
-	}
-}
-
-func (parser *CubeParser) getCmdByRotation(cwCommand string, ccwCommand string, cw180Command string, rotation Direction) (string, error) {
-	switch rotation {
-	case CW:
-		return cwCommand, nil
-	case CCW:
-		return ccwCommand, nil
-	case CW2:
-		if cw180Command == "" {
-			return "", errors.New("unsupported 180 rotation for this command")
+	switch token {
+	case "R": // Right
+		if dir == CW {
+			return []string{
+				RCw90,
+				ROpen,
+				RCcw90,
+				RClose,
+			}, nil
+		} else {
+			return []string{
+				RCcw90,
+				ROpen,
+				RCw90,
+				RClose,
+			}, nil
 		}
-		return cw180Command, nil
+	case "D": // Down
+		if dir == CCW { // 左臂是 Down, 与公式相反
+			return []string{
+				LCw90,
+				LOpen,
+				LCcw90,
+				LClose,
+			}, nil
+		} else {
+			return []string{
+				LCcw90,
+				LOpen,
+				LCw90,
+				LClose,
+			}, nil
+		}
+	case "F": // Front
+		if dir == CW {
+			return []string{
+				ROpen,
+				LCcw90,
+				RClose,
+				LOpen,
+				LCw90,
+				LClose,
+				RCcw90,
+				ROpen,
+				RCw90,
+				LCw90,
+				RClose,
+				LOpen,
+				LCcw90,
+				LClose,
+			}, nil
+		} else {
+			return []string{
+				ROpen,
+				LCcw90,
+				RClose,
+				LOpen,
+				LCw90,
+				LClose,
+				RCw90,
+				ROpen,
+				RCcw90,
+				LCw90,
+				RClose,
+				LOpen,
+				LCcw90,
+				LClose,
+			}, nil
+		}
+	case "B": // Back
+		if dir == CW {
+			return []string{
+				LOpen,
+				RCcw90,
+				LClose,
+				ROpen,
+				RCw90,
+				RClose,
+				LCcw90,
+				LOpen,
+				LCw90,
+				RCw90,
+				LClose,
+				ROpen,
+				RCcw90,
+				RClose,
+			}, nil
+		} else {
+			return []string{
+				LOpen,
+				RCcw90,
+				LClose,
+				ROpen,
+				RCw90,
+				RClose,
+				LCw90,
+				LOpen,
+				LCcw90,
+				RCw90,
+				LClose,
+				ROpen,
+				RCcw90,
+				RClose,
+			}, nil
+		}
+	case "U": // Up
+		if dir == CW {
+			return []string{
+				LOpen,
+				RCw180,
+				LClose,
+				LCcw90,
+				LOpen,
+				LCw90,
+				RCcw180,
+				LClose,
+			}, nil
+		} else {
+			return []string{
+				LOpen,
+				RCw180,
+				LClose,
+				LCw90,
+				LOpen,
+				LCcw90,
+				RCcw180,
+				LClose,
+			}, nil
+		}
+	case "L": // Left
+		if dir == CW {
+			return []string{
+				ROpen,
+				LCw180,
+				RClose,
+				RCcw90,
+				ROpen,
+				RCw90,
+				LCcw180,
+				RClose,
+			}, nil
+		} else {
+			return []string{
+				ROpen,
+				LCw180,
+				RClose,
+				RCw90,
+				ROpen,
+				RCcw90,
+				LCcw180,
+				RClose,
+			}, nil
+		}
 	default:
-		return "", errors.New("unknown rotation: " + rotation)
+		return nil, errors.New("invalid token")
 	}
 }
-
-// Example usage:
-// config := CommandConfig{
-// 	CMD_R_GRIP_CLOSE:     "CMD_R_GRIP_CLOSE",
-// 	CMD_R_GRIP_OPEN:      "CMD_R_GRIP_OPEN",
-// 	CMD_L_GRIP_CLOSE:     "CMD_L_GRIP_CLOSE",
-// 	CMD_L_GRIP_OPEN:      "CMD_L_GRIP_OPEN",
-// 	CMD_R_ROTATE_CW_90:   "CMD_R_ROTATE_CW_90",
-// 	CMD_R_ROTATE_CCW_90:  "CMD_R_ROTATE_CCW_90",
-// 	CMD_R_ROTATE_CW_180:  "CMD_R_ROTATE_CW_180",
-// 	CMD_L_ROTATE_CW_90:   "CMD_L_ROTATE_CW_90",
-// 	CMD_L_ROTATE_CCW_90:  "CMD_L_ROTATE_CCW_90",
-// 	CMD_L_ROTATE_CW_180:  "CMD_L_ROTATE_CW_180",
-// 	CMD_L_ROTATE_CCW_180: "CMD_L_ROTATE_CCW_180",
-// 	CMD_R_ROTATE_CCW_180: "CMD_R_ROTATE_CCW_180",
-// }
-//
-// parser := NewCubeParser(config)
-// formula := "D R B R L' D L F L' F L2 F2 D F2 U D L2 D' F2 R2"
-// commands, err := parser.ParseFormula(formula)
-// if err != nil {
-// 	fmt.Println("Error:", err)
-// } else {
-// 	fmt.Println("Commands:", commands)
-// }
