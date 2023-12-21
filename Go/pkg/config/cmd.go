@@ -22,8 +22,8 @@ type CommandConfig struct {
 }
 
 // LoadCmd loads the command configuration from a JSON file.
-func LoadCmd() (*CommandConfig, error) {
-	content, err := os.ReadFile("./config/cmd.json")
+func LoadCmd(filePath string) (*CommandConfig, error) {
+	content, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}

@@ -22,8 +22,8 @@ type CommandDelayConfig struct {
 }
 
 // LoadCmdDelay loads the command configuration from a JSON file.
-func LoadCmdDelay() (*CommandDelayConfig, error) {
-	content, err := os.ReadFile("./config/delay.json")
+func LoadCmdDelay(filePath string) (*CommandDelayConfig, error) {
+	content, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}

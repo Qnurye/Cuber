@@ -11,8 +11,8 @@ type FormulaConfig struct {
 }
 
 // LoadFormula loads the command configuration from a JSON file.
-func LoadFormula() (*FormulaConfig, error) {
-	content, err := os.ReadFile("./config/formula.json")
+func LoadFormula(filePath string) (*FormulaConfig, error) {
+	content, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}

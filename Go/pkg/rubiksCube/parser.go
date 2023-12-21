@@ -2,6 +2,7 @@ package rubiksCube
 
 import (
 	"errors"
+	"log"
 	"qnurye/Cuber/pkg/config"
 	"strings"
 )
@@ -23,6 +24,10 @@ func (p *CubeParser) ParseFormula(formula string) ([]Command, error) {
 	cmd := make([]Command, 0)     // commands
 
 	for _, t := range ts {
+		log.Println(t)
+		if t[0] == '(' {
+			break
+		}
 		c, err := p.parseToken(t)
 		if err != nil {
 			return nil, err

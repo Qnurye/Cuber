@@ -11,9 +11,9 @@ import (
 )
 
 func main() {
-	cmd, err := config.LoadCmd()
-	delay, err := config.LoadCmdDelay()
-	formulaCfg, err := config.LoadFormula()
+	cmd, err := config.LoadCmd("./config/cmd.json")
+	delay, err := config.LoadCmdDelay("./config/delay.json")
+	formulaCfg, err := config.LoadFormula("./config/formula.json")
 	if err != nil {
 		log.Fatal(err)
 	}
