@@ -8,18 +8,19 @@ import (
 
 // CubeParser represents a Rubik's Cube formula parser.
 type CubeParser struct {
-	Config *config.CommandConfig
+	Command *config.CommandConfig
+	Delay   *config.CommandDelayConfig
 }
 
 // NewCubeParser creates a new CubeParser with the specified configuration.
-func NewCubeParser(config *config.CommandConfig) *CubeParser {
-	return &CubeParser{Config: config}
+func NewCubeParser(cmd *config.CommandConfig, delay *config.CommandDelayConfig) *CubeParser {
+	return &CubeParser{Command: cmd, Delay: delay}
 }
 
 // ParseFormula parses a Rubik's Cube formula and returns the sequence of commands.
-func (p *CubeParser) ParseFormula(formula string) ([]string, error) {
+func (p *CubeParser) ParseFormula(formula string) ([]Command, error) {
 	ts := strings.Fields(formula) // tokens
-	cmd := make([]string, 0)      // commands
+	cmd := make([]Command, 0)     // commands
 
 	for _, t := range ts {
 		c, err := p.parseToken(t)
@@ -39,9 +40,9 @@ const (
 	CW                        // Clock Wise
 )
 
-func (p *CubeParser) parseToken(token string) ([]string, error) {
+func (p *CubeParser) parseToken(token string) ([]Command, error) {
 	if len(token) < 1 {
-		return make([]string, 0), errors.New("invalid token length")
+		return make([]Command, 0), errors.New("invalid token length")
 	}
 
 	var d string
@@ -61,33 +62,38 @@ func (p *CubeParser) parseToken(token string) ([]string, error) {
 	}
 }
 
-func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
+type Command struct {
+	Operation string
+	Delay     int
+}
+
+func (p *CubeParser) getCommand(token string, dir Direction) ([]Command, error) {
 	var (
-		LClose  = p.Config.CmdLGripClose
-		RClose  = p.Config.CmdRGripClose
-		LOpen   = p.Config.CmdLGripOpen
-		ROpen   = p.Config.CmdRGripOpen
-		LCw90   = p.Config.CmdLRotateCw90
-		RCw90   = p.Config.CmdRRotateCw90
-		LCcw90  = p.Config.CmdLRotateCcw90
-		RCcw90  = p.Config.CmdRRotateCcw90
-		RCw180  = p.Config.CmdRRotateCw180
-		RCcw180 = p.Config.CmdRRotateCcw180
-		LCw180  = p.Config.CmdLRotateCw180
-		LCcw180 = p.Config.CmdLRotateCcw180
+		LClose  = Command{Operation: p.Command.CmdLGripClose, Delay: p.Delay.CmdLGripClose}
+		RClose  = Command{Operation: p.Command.CmdRGripClose, Delay: p.Delay.CmdRGripClose}
+		LOpen   = Command{Operation: p.Command.CmdLGripOpen, Delay: p.Delay.CmdLGripOpen}
+		ROpen   = Command{Operation: p.Command.CmdRGripOpen, Delay: p.Delay.CmdRGripOpen}
+		LCw90   = Command{Operation: p.Command.CmdLRotateCw90, Delay: p.Delay.CmdLRotateCw90}
+		RCw90   = Command{Operation: p.Command.CmdRRotateCw90, Delay: p.Delay.CmdRRotateCw90}
+		LCcw90  = Command{Operation: p.Command.CmdLRotateCcw90, Delay: p.Delay.CmdLRotateCcw90}
+		RCcw90  = Command{Operation: p.Command.CmdRRotateCcw90, Delay: p.Delay.CmdRRotateCcw90}
+		RCw180  = Command{Operation: p.Command.CmdRRotateCw180, Delay: p.Delay.CmdRRotateCw180}
+		RCcw180 = Command{Operation: p.Command.CmdRRotateCcw180, Delay: p.Delay.CmdRRotateCcw180}
+		LCw180  = Command{Operation: p.Command.CmdLRotateCw180, Delay: p.Delay.CmdLRotateCw180}
+		LCcw180 = Command{Operation: p.Command.CmdLRotateCcw180, Delay: p.Delay.CmdLRotateCcw180}
 	)
 
 	switch token {
 	case "R": // Right
 		if dir == CW {
-			return []string{
+			return []Command{
 				RCw90,
 				ROpen,
 				RCcw90,
 				RClose,
 			}, nil
 		} else {
-			return []string{
+			return []Command{
 				RCcw90,
 				ROpen,
 				RCw90,
@@ -96,14 +102,14 @@ func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
 		}
 	case "D": // Down
 		if dir == CCW { // 左臂是 Down, 与公式相反
-			return []string{
+			return []Command{
 				LCw90,
 				LOpen,
 				LCcw90,
 				LClose,
 			}, nil
 		} else {
-			return []string{
+			return []Command{
 				LCcw90,
 				LOpen,
 				LCw90,
@@ -112,7 +118,7 @@ func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
 		}
 	case "F": // Front
 		if dir == CW {
-			return []string{
+			return []Command{
 				ROpen,
 				LCcw90,
 				RClose,
@@ -129,7 +135,7 @@ func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
 				LClose,
 			}, nil
 		} else {
-			return []string{
+			return []Command{
 				ROpen,
 				LCcw90,
 				RClose,
@@ -148,7 +154,7 @@ func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
 		}
 	case "B": // Back
 		if dir == CW {
-			return []string{
+			return []Command{
 				LOpen,
 				RCcw90,
 				LClose,
@@ -165,7 +171,7 @@ func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
 				RClose,
 			}, nil
 		} else {
-			return []string{
+			return []Command{
 				LOpen,
 				RCcw90,
 				LClose,
@@ -184,7 +190,7 @@ func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
 		}
 	case "U": // Up
 		if dir == CW {
-			return []string{
+			return []Command{
 				LOpen,
 				RCw180,
 				LClose,
@@ -195,7 +201,7 @@ func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
 				LClose,
 			}, nil
 		} else {
-			return []string{
+			return []Command{
 				LOpen,
 				RCw180,
 				LClose,
@@ -208,7 +214,7 @@ func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
 		}
 	case "L": // Left
 		if dir == CW {
-			return []string{
+			return []Command{
 				ROpen,
 				LCw180,
 				RClose,
@@ -219,7 +225,7 @@ func (p *CubeParser) getCommand(token string, dir Direction) ([]string, error) {
 				RClose,
 			}, nil
 		} else {
-			return []string{
+			return []Command{
 				ROpen,
 				LCw180,
 				RClose,
