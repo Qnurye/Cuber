@@ -86,32 +86,39 @@ func TestCubeParser_ParseFormula(t *testing.T) {
 	}
 
 	// 验证解析的命令序列是否符合预期
-	expected := []rubiksCube.Command{
-		{Operation: "test_CMD_R_ROTATE_CCW_90", Delay: 400},
-		{Operation: "test_CMD_R_GRIP_OPEN", Delay: 200},
-		{Operation: "test_CMD_R_ROTATE_CW_90", Delay: 300},
-		{Operation: "test_CMD_R_GRIP_CLOSE", Delay: 100},
+	expectedList := &rubiksCube.LinkedList{}
 
-		{Operation: "test_CMD_L_ROTATE_CCW_90", Delay: 700},
-		{Operation: "test_CMD_L_GRIP_OPEN", Delay: 250},
-		{Operation: "test_CMD_L_ROTATE_CW_90", Delay: 600},
-		{Operation: "test_CMD_L_GRIP_CLOSE", Delay: 150},
-	}
+	// Right commands
+	expectedList.Append(rubiksCube.Command{Operation: "test_CMD_R_ROTATE_CCW_90", Delay: 400})
+	expectedList.Append(rubiksCube.Command{Operation: "test_CMD_R_GRIP_OPEN", Delay: 200})
+	expectedList.Append(rubiksCube.Command{Operation: "test_CMD_R_ROTATE_CW_90", Delay: 300})
+	expectedList.Append(rubiksCube.Command{Operation: "test_CMD_R_GRIP_CLOSE", Delay: 100})
 
-	if !commandsEqual(commands, expected) {
-		t.Errorf("Parsed commands do not match expected values.\nGot: %+v\nExpected: %+v", commands, expected)
+	// Left commands
+	expectedList.Append(rubiksCube.Command{Operation: "test_CMD_L_ROTATE_CCW_90", Delay: 700})
+	expectedList.Append(rubiksCube.Command{Operation: "test_CMD_L_GRIP_OPEN", Delay: 250})
+	expectedList.Append(rubiksCube.Command{Operation: "test_CMD_L_ROTATE_CW_90", Delay: 600})
+	expectedList.Append(rubiksCube.Command{Operation: "test_CMD_L_GRIP_CLOSE", Delay: 150})
+
+	if !commandsEqual(commands, expectedList) {
+		t.Errorf("Parsed commands do not match expected values.\nGot: %+v\nExpected: %+v", commands, expectedList)
 	}
 }
 
 // helper function to compare two slices of Command instances
-func commandsEqual(c1, c2 []rubiksCube.Command) bool {
-	if len(c1) != len(c2) {
-		return false
-	}
-	for i := range c1 {
-		if c1[i].Operation != c2[i].Operation || c1[i].Delay != c2[i].Delay {
+func commandsEqual(list1, list2 *rubiksCube.LinkedList) bool {
+	current1 := list1.Head
+	current2 := list2.Head
+
+	for current1 != nil && current2 != nil {
+		if current1.Operation != current2.Operation || current1.Delay != current2.Delay {
 			return false
 		}
+
+		current1 = current1.Next
+		current2 = current2.Next
 	}
-	return true
+
+	// If lengths are not equal, or if one list is longer than the other
+	return current1 == nil && current2 == nil
 }

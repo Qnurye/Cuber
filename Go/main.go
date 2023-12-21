@@ -33,20 +33,41 @@ func main() {
 		//fmt.Println("Commands:", commands)
 		slept := time.Duration(0)
 		sent := 0
-		for _, cmd := range commands {
-			d, err := time.ParseDuration(strconv.Itoa(cmd.Delay) + "ms")
-			if err != nil {
-				return
-			}
-			n, err := s.Write([]byte(cmd.Operation + "\n"))
+		//for _, cmd := range commands {
+		//	d, err := time.ParseDuration(strconv.Itoa(cmd.Delay) + "ms")
+		//	if err != nil {
+		//		return
+		//	}
+		//	n, err := s.Write([]byte(cmd.Operation + "\n"))
+		//	if err != nil {
+		//		log.Fatal(err)
+		//	}
+		//	sent += n
+		//	slept += d
+		//	//sent += 2
+		//	log.Printf("Sent %v byte: %v, sleeping for %v ms", 2, cmd.Operation, d.Milliseconds())
+		//	time.Sleep(d)
+		//}
+
+		current := commands.Head
+		for current != nil {
+			d, err := time.ParseDuration(strconv.Itoa(current.Command.Delay) + "ms")
 			if err != nil {
 				log.Fatal(err)
 			}
+
+			n, err := s.Write([]byte(current.Command.Operation + "\n"))
+			if err != nil {
+				log.Fatal(err)
+			}
+
 			sent += n
 			slept += d
-			//sent += 2
-			log.Printf("Sent %v byte: %v, sleeping for %v ms", 2, cmd.Operation, d.Milliseconds())
+
+			log.Printf("Sent %v byte: %v, sleeping for %v ms", n, current.Command.Operation, d.Milliseconds())
 			time.Sleep(d)
+
+			current = current.Next
 		}
 		log.Printf("Finished !\n Sent %v bytes, slept %v ms (which is %v) in total", sent, slept.Milliseconds(), slept)
 	}
