@@ -1,8 +1,7 @@
-package test
+package config
 
 import (
 	"os"
-	config2 "qnurye/Cuber/pkg/config"
 	"testing"
 )
 
@@ -46,13 +45,13 @@ func TestLoadCmdDelay(t *testing.T) {
 	}
 
 	// 运行测试
-	config, err := config2.LoadCmdDelay(tmpFile)
+	config, err := LoadCmdDelay(tmpFile)
 	if err != nil {
 		t.Fatalf("LoadCmdDelay failed: %v", err)
 	}
 
 	// 验证加载的配置是否与测试用例一致
-	expected := &config2.CommandDelayConfig{
+	expected := &CommandDelayConfig{
 		CmdRGripClose:    100,
 		CmdRGripOpen:     200,
 		CmdLGripClose:    150,
@@ -73,7 +72,7 @@ func TestLoadCmdDelay(t *testing.T) {
 }
 
 // helper function to compare two CommandDelayConfig instances
-func delayConfigEqual(c1, c2 *config2.CommandDelayConfig) bool {
+func delayConfigEqual(c1, c2 *CommandDelayConfig) bool {
 	return c1.CmdRGripClose == c2.CmdRGripClose &&
 		c1.CmdRGripOpen == c2.CmdRGripOpen &&
 		c1.CmdLGripClose == c2.CmdLGripClose &&

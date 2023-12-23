@@ -1,8 +1,7 @@
-package test
+package config
 
 import (
 	"os"
-	config2 "qnurye/Cuber/pkg/config"
 	"testing"
 )
 
@@ -46,13 +45,13 @@ func TestLoadCmd(t *testing.T) {
 	}
 
 	// 运行测试
-	config, err := config2.LoadCmd(tmpFile)
+	config, err := LoadCmd(tmpFile)
 	if err != nil {
 		t.Fatalf("LoadCmd failed: %v", err)
 	}
 
 	// 验证加载的配置是否与测试用例一致
-	expected := &config2.CommandConfig{
+	expected := &CommandConfig{
 		CmdRGripClose:    "test_CMD_R_GRIP_CLOSE",
 		CmdRGripOpen:     "test_CMD_R_GRIP_OPEN",
 		CmdLGripClose:    "test_CMD_L_GRIP_CLOSE",
@@ -73,7 +72,7 @@ func TestLoadCmd(t *testing.T) {
 }
 
 // helper function to compare two CommandConfig instances
-func configEqual(c1, c2 *config2.CommandConfig) bool {
+func configEqual(c1, c2 *CommandConfig) bool {
 	return c1.CmdRGripClose == c2.CmdRGripClose &&
 		c1.CmdRGripOpen == c2.CmdRGripOpen &&
 		c1.CmdLGripClose == c2.CmdLGripClose &&

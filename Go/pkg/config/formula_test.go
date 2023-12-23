@@ -1,8 +1,7 @@
-package test
+package config
 
 import (
 	"os"
-	config2 "qnurye/Cuber/pkg/config"
 	"testing"
 )
 
@@ -35,13 +34,13 @@ func TestLoadFormula(t *testing.T) {
 	}
 
 	// 运行测试
-	config, err := config2.LoadFormula(tmpFile)
+	config, err := LoadFormula(tmpFile)
 	if err != nil {
 		t.Fatalf("LoadFormula failed: %v", err)
 	}
 
 	// 验证加载的配置是否与测试用例一致
-	expected := &config2.FormulaConfig{
+	expected := &FormulaConfig{
 		Formula: "test_formula",
 	}
 
@@ -51,6 +50,6 @@ func TestLoadFormula(t *testing.T) {
 }
 
 // helper function to compare two FormulaConfig instances
-func formulaConfigEqual(c1, c2 *config2.FormulaConfig) bool {
+func formulaConfigEqual(c1, c2 *FormulaConfig) bool {
 	return c1.Formula == c2.Formula
 }

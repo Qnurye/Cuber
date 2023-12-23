@@ -1,10 +1,9 @@
-package test
+package rubiksCube
 
 import (
 	"fmt"
 	"log"
 	"qnurye/Cuber/pkg/config"
-	"qnurye/Cuber/pkg/rubiksCube"
 	"strconv"
 	"testing"
 	"time"
@@ -22,7 +21,7 @@ func TestCubeParser_ParseFormula_Performance(t *testing.T) {
 	}
 
 	// 创建 CubeParser
-	parser := rubiksCube.NewCubeParser(cmdConfig, delayConfig)
+	parser := NewCubeParser(cmdConfig, delayConfig)
 
 	// 运行测试
 	formula := "R' L D2 B2 U' R' D' F2 R F2 D2 F2 D2 R B2 R F2 U2 L2"
