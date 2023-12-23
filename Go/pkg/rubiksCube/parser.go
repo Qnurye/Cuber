@@ -3,6 +3,7 @@ package rubiksCube
 import (
 	"errors"
 	"fmt"
+	"log"
 	"qnurye/Cuber/pkg/config"
 	"strings"
 )
@@ -28,13 +29,56 @@ type LinkedList struct {
 	Head *ListNode
 }
 
+type CubeStatus struct {
+	Down    string
+	Right   string
+	Front   string
+	Back    string
+	Left    string
+	Up      string
+	LDegree int
+	RDegree int
+	LStatus GripStatus
+	RStatus GripStatus
+}
+
+// type Hand int
+
+type Hand string
+
+const (
+	//HandL Hand = iota
+	//HandR
+	HandL Hand = "HandL"
+	HandR Hand = "HandR"
+)
+
+// type GripStatus int
+
+type GripStatus string
+
+const (
+	Open  GripStatus = "Open"
+	Close GripStatus = "Close"
+)
+
 type CubeParser struct {
-	Command *config.CommandConfig
-	Delay   *config.CommandDelayConfig
+	Command    *config.CommandConfig
+	Delay      *config.CommandDelayConfig
+	CubeStatus *CubeStatus
 }
 
 func NewCubeParser(cmd *config.CommandConfig, delay *config.CommandDelayConfig) *CubeParser {
-	return &CubeParser{Command: cmd, Delay: delay}
+	return &CubeParser{Command: cmd, Delay: delay, CubeStatus: &CubeStatus{
+		Down:    "D",
+		Right:   "R",
+		Front:   "F",
+		Back:    "B",
+		Left:    "L",
+		Up:      "U",
+		LStatus: Close,
+		RStatus: Close,
+	}}
 }
 
 func (p *CubeParser) ParseFormula(formula string) (*LinkedList, error) {
@@ -83,27 +127,6 @@ func ConnectLists(list1, list2 *LinkedList) {
 	}
 }
 
-// CopyAndDouble 方法用于复制一段链表并将其长度延长一倍
-func CopyAndDouble(original *LinkedList) *LinkedList {
-	if original == nil || original.Head == nil {
-		return nil
-	}
-
-	// 创建新的链表
-	duplicated := &LinkedList{}
-
-	// 复制原链表的每个节点并添加到新链表中
-	current := original.Head
-	for current != nil {
-		duplicated.Append(current.Command)
-		duplicated.Append(current.Command) // 复制节点
-
-		current = current.Next
-	}
-
-	return duplicated
-}
-
 func (list *LinkedList) Print() {
 	current := list.Head
 	for current != nil {
@@ -136,6 +159,7 @@ func (p *CubeParser) optimize(commands *LinkedList) *LinkedList {
 }
 
 func (p *CubeParser) parseToken(token string) (*LinkedList, error) {
+	log.Printf("parsing: %v", token)
 	if len(token) < 1 {
 		return &LinkedList{}, errors.New("invalid token length")
 	}
