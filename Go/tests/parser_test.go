@@ -3,7 +3,6 @@ package tests
 import (
 	"fmt"
 	"log"
-	"os"
 	"qnurye/Cuber/pkg/config"
 	"qnurye/Cuber/pkg/rubiksCube"
 	"strconv"
@@ -26,8 +25,8 @@ func TestCubeParser_ParseFormula_Performance(t *testing.T) {
 	parser := rubiksCube.NewCubeParser(cmdConfig, delayConfig)
 
 	// 运行测试
-	//formula := "F2 R2 L U F D' R2 B R' U L2 U B2 D' L2 U' R2 D2 B2 L2 D'"
-	formula, err := os.ReadFile("../config/mofang.txt")
+	formula := "U2 F L' F2 B L2 U' D' L F U R U' F2 D' R2 U F2 R2 U2"
+	//formula, err := os.ReadFile("../config/mofang.txt")
 	commands, err := parser.ParseFormula(string(formula))
 	if err != nil {
 		t.Fatalf("ParseFormula failed: %v", err)

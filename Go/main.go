@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	c := &serial.Config{Name: "/dev/ttyACM0", Baud: 9600}
+	c := &serial.Config{Name: "/dev/ttyACM1", Baud: 9600}
 	s, err := serial.OpenPort(c)
 	if err != nil {
 		log.Fatal(err)
@@ -42,10 +42,9 @@ func main() {
 			_, _ = s.Read(buf)
 			for len(buf) == 0 {
 			}
-
 			d := time.Since(bTime)
 			bTime = time.Now()
-			if d > 100*time.Millisecond {
+			if d > 300*time.Millisecond {
 				step += 1
 				slept += d
 
