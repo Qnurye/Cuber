@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/tarm/serial"
 	"log"
 	"qnurye/Cuber/pkg/config"
 	"qnurye/Cuber/pkg/rubiksCube"
@@ -12,21 +13,18 @@ import (
 func main() {
 	cmd, err := config.LoadCmd("./config/cmd.json")
 	delay, err := config.LoadCmdDelay("./config/delay.json")
-	//formulaCfg, err := config.LoadFormula("./config/formula.json")
+	formulaCfg, err := config.LoadFormula("./config/formula.json")
 	if err != nil {
 		log.Fatal(err)
 	}
-	//c := &serial.Config{Name: "/dev/ttyACM0", Baud: 9600}
-	//s, err := serial.OpenPort(c)
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
+	c := &serial.Config{Name: "/dev/ttyACM0", Baud: 9600}
+	s, err := serial.OpenPort(c)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	parser := rubiksCube.NewCubeParser(cmd, delay)
-	//formula := "U F' D' L' F2 R2 F R2 U' B2 L' F2 D2 R2 L F2 D2 R2 U2 L' F2"
-	//formula := "F B U D L R F B U D L F B U D L F B U D L" // between B and U
-	formula := "F B U D L R F B U D L F B U"
-	//formula := formulaCfg.Formula
+	formula := formulaCfg.Formula
 	commands, err := parser.ParseFormula(formula)
 	if err != nil {
 		fmt.Println("Error:", err)
@@ -41,17 +39,16 @@ func main() {
 				log.Fatal(err)
 			}
 
-			//n, err := s.Write([]byte(current.Command.Operation + "\n"))
-			//if err != nil {
-			//	log.Fatal(err)
-			//}
+			n, err := s.Write([]byte(current.Command.Operation + "\n"))
+			if err != nil {
+				log.Fatal(err)
+			}
 
-			n := 1
-			step += n
+			step += 1
 			slept += d
 
 			log.Printf("Sent %v step: %v, sleeping for %v ms", n, current.Command.Operation, d.Milliseconds())
-			//time.Sleep(d)
+			time.Sleep(d)
 
 			current = current.Next
 		}
