@@ -25,6 +25,7 @@ void TB660Rotate(TB660* tb660, EE_SX670* eeSx670, Dir dir, int degree) {
         default:
             break;
     }
+    Serial.write('.');
 }
 
 enum GripStatus {
@@ -34,10 +35,12 @@ enum GripStatus {
 
 void MEGA996RGrip(MEGA996R* mega996R, GripStatus status) {
     if (status == Close) {
-        mega996R->setAngle(90);
+        mega996R->setAngle(85);
     } else {
         mega996R->setAngle(180);
     }
+    delay(400);
+    Serial.write('.');
 }
 
 #endif //CUBER_CONTROLLER_H

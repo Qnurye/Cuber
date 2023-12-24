@@ -148,11 +148,32 @@ func (p *CubeParser) optimize(commands *LinkedList) *LinkedList {
 				current.Next.Command.Operation == p.Command.CmdLGripOpen) {
 			previous.Next = current.Next.Next
 			current = previous.Next
+		} else if current.Command.Operation == current.Next.Command.Operation {
+			switch current.Command.Operation {
+			case p.Command.CmdLRotateCw90:
+				current.Command.Operation = p.Command.CmdLRotateCw180
+				current.Command.Delay = p.Delay.CmdLRotateCw180
+			case p.Command.CmdLRotateCcw90:
+				current.Command.Operation = p.Command.CmdLRotateCcw180
+				current.Command.Delay = p.Delay.CmdLRotateCcw180
+			case p.Command.CmdRRotateCw90:
+				current.Command.Operation = p.Command.CmdRRotateCw180
+				current.Command.Delay = p.Delay.CmdRRotateCw180
+			case p.Command.CmdRRotateCcw90:
+				current.Command.Operation = p.Command.CmdRRotateCcw180
+				current.Command.Delay = p.Delay.CmdRRotateCw180
+			}
+			current.Next = current.Next.Next
+			previous = current
+			current = current.Next
 		} else {
 			previous = current
 			current = current.Next
 		}
 	}
+
+	ConnectLists(commands, p.gripCmd(HandL, Open))
+	ConnectLists(commands, p.gripCmd(HandR, Open))
 
 	commands.Print()
 	return commands

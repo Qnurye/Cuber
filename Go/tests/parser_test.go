@@ -25,7 +25,7 @@ func TestCubeParser_ParseFormula_Performance(t *testing.T) {
 	parser := rubiksCube.NewCubeParser(cmdConfig, delayConfig)
 
 	// 运行测试
-	formula := "U L F D U U U U U F' D' L' F2 R2 F R2 U' B2 L' F2 D2 R2 L F2 D2 R2 U2 L' F2"
+	formula := "F2 R2 L U F D' R2 B R' U L2 U B2 D' L2 U' R2 D2 B2 L2 D'"
 	commands, err := parser.ParseFormula(formula)
 	if err != nil {
 		t.Fatalf("ParseFormula failed: %v", err)

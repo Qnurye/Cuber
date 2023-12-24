@@ -6,7 +6,6 @@ import (
 	"log"
 	"qnurye/Cuber/pkg/config"
 	"qnurye/Cuber/pkg/rubiksCube"
-	"strconv"
 	"time"
 )
 
@@ -30,27 +29,35 @@ func main() {
 		fmt.Println("Error:", err)
 	} else {
 		slept := time.Duration(0)
+		bTime := time.Now()
 		step := 0
 
 		current := commands.Head
 		for current != nil {
-			d, err := time.ParseDuration(strconv.Itoa(current.Command.Delay) + "ms")
-			if err != nil {
-				log.Fatal(err)
-			}
-
 			n, err := s.Write([]byte(current.Command.Operation + "\n"))
 			if err != nil {
 				log.Fatal(err)
 			}
+			buf := make([]byte, 8)
+			_, _ = s.Read(buf)
+			for len(buf) == 0 {
+			}
 
-			step += 1
-			slept += d
+			d := time.Since(bTime)
+			bTime = time.Now()
+			if d > 100*time.Millisecond {
+				step += 1
+				slept += d
 
-			log.Printf("Sent %v step: %v, sleeping for %v ms", n, current.Command.Operation, d.Milliseconds())
-			time.Sleep(d)
+				log.Printf("Sent %v step: %v, cost %v ms", n, current.Command.Operation, d.Milliseconds())
 
-			current = current.Next
+				log.Printf("%q", buf[:n])
+
+				current = current.Next
+				time.Sleep(50 * time.Millisecond)
+			} else {
+			}
+
 		}
 		log.Printf("Finished !\n Sent %v steps, slept %v ms (which is %v) in total", step, slept.Milliseconds(), slept)
 	}

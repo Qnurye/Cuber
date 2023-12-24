@@ -50,7 +50,6 @@ void setup() {
 void loop() {
     Serial.readBytes(&cmd, 1);
     if (cmd != '\0') {
-        Serial.println(cmd);
         switch (cmd) {
             case CMD_L_ROTATE_CW_90:
                 TB660Rotate(&stepDriverL, &sensorL, Clockwise, 90);

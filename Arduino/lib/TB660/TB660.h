@@ -4,7 +4,7 @@
 
 #ifndef CUBER_TB660_H
 #define CUBER_TB660_H
-#define DEFAULT_DUTY_CYCLE 60
+#define DEFAULT_DUTY_CYCLE 90
 
 #include "Pin.h"
 
